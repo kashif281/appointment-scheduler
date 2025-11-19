@@ -1,0 +1,161 @@
+{
+  "entities": [
+    {
+      "name": "Availability",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "time_slot",
+          "type": "time",
+          "nullable": false
+        },
+        {
+          "name": "available",
+          "type": "boolean",
+          "nullable": false
+        },
+        {
+          "name": "location",
+          "type": "varchar",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "date",
+            "time_slot"
+          ],
+          "unique": true
+        }
+      ]
+    },
+    {
+      "name": "Booking",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "time_slot",
+          "type": "time",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "date",
+            "time_slot"
+          ],
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Reminder",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "reminder_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "reminder_time",
+          "type": "time",
+          "nullable": false
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "is_sent",
+          "type": "boolean",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "reminder_date",
+            "reminder_time"
+          ],
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Cancellation",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "cancellation_date",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "cancellation_time",
+          "type": "time",
+          "nullable": false
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "cancellation_date",
+            "cancellation_time"
+          ],
+          "unique": false
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "Availability",
+      "to": "Booking",
+      "type": "OneToMany"
+    },
+    {
+      "from": "Booking",
+      "to": "Reminder",
+      "type": "OneToOne"
+    },
+    {
+      "from": "Booking",
+      "to": "Cancellation",
+      "type": "OneToOne"
+    }
+  ],
+  "_removedEntities": []
+}
